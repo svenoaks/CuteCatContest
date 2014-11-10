@@ -1,0 +1,38 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".ImageViewActivity">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ImageViewActivity"/>
+
+    <com.shamanland.fab.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="16dp"
+        app:floatingActionButtonSize="normal"
+        />
+    <LinearLayout android:id="@+id/footer" android:layout_width="fill_parent"
+                  android:layout_height="wrap_content" android:orientation="horizontal"
+                  android:layout_alignParentBottom="true" style="@android:style/ButtonBar">
+
+        <Button android:id="@+id/saveButton" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:layout_weight="1"
+                 />
+
+        <Button android:id="@+id/cancelButton" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:layout_weight="1"
+                 />
+    </LinearLayout>
+
+</RelativeLayout>
