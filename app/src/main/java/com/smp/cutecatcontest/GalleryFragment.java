@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.shamanland.fab.ShowHideOnScroll;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +25,7 @@ public class GalleryFragment extends Fragment {
     private int position;
 
     @InjectView(R.id.recycler_view) RecyclerView mRecyclerView;
+    //@InjectView(R.id.floating_button_gallery) com.shamanland.fab.FloatingActionButton mFloatingActionButton;
 
     private RecyclerView.Adapter mAdapter;
     private GridLayoutManager mLayoutManager;
@@ -59,13 +62,13 @@ public class GalleryFragment extends Fragment {
            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom)
            {
                calculateSpans();
-
            }
        });
 
         // specify an adapter (see also next example)
-       mAdapter = new GalleryAdapter(createList(30), this.getActivity());
+       mAdapter = new GalleryAdapter(createList(), this.getActivity());
        mRecyclerView.setAdapter(mAdapter);
+       //mRecyclerView.setOnTouchListener(new ShowHideOnScroll(mFloatingActionButton));
        return view;
     }
     private void calculateSpans()
@@ -77,18 +80,46 @@ public class GalleryFragment extends Fragment {
 
         mLayoutManager.setSpanCount((int) dpWidth/CARD_WIDTH_MIN);
     }
-    private List<GalleryAdapter.GalleryData> createList(int size) {
+    private static List<CatData> createList() {
 
-        List<GalleryAdapter.GalleryData> result = new ArrayList<GalleryAdapter.GalleryData>();
-        for (int i=1; i <= size; i++) {
-            GalleryAdapter.GalleryData ci = new GalleryAdapter.GalleryData();
-            ci.author = GalleryAdapter.GalleryData.AUTHOR_PREFIX + i;
-            ci.votes = GalleryAdapter.GalleryData.VOTES_PREFIX + i;
-
-            result.add(ci);
-
+        List<CatData> result = new ArrayList<CatData>();
+        for (int i=1; i <= 30; i++) {
+            CatData c = new CatDataBuilder().createCatData();
+            switch (i % 6)
+            {
+                case 0:
+                    c.setAuthor("Joe");
+                    c.setVotes("4");
+                    c.setImageUrl("http://www.findcatnames.com/wp-content/uploads/2014/09/453768-cats-cute-300x225.jpg");
+                    break;
+                case 1:
+                    c.setAuthor("Steve");
+                    c.setVotes("7");
+                    c.setImageUrl("http://images.fanpop.com/images/image_uploads/so-freakin-cute--cats-248645_500_375.jpg");
+                    break;
+                case 2:
+                    c.setAuthor("Jane");
+                    c.setVotes("9");
+                    c.setImageUrl("http://images.fanpop.com/images/image_uploads/so-freakin-cute--cats-248642_500_375.jpg");
+                    break;
+                case 3:
+                    c.setAuthor("Jille");
+                    c.setVotes("10");
+                    c.setImageUrl("http://images.fanpop.com/images/image_uploads/so-freakin-cute--cats-248639_500_375.jpg");
+                    break;
+                case 4:
+                    c.setAuthor("Dan");
+                    c.setVotes("12");
+                    c.setImageUrl("http://images.fanpop.com/images/image_uploads/so-freakin-cute--cats-248633_500_375.jpg");
+                    break;
+                case 5:
+                    c.setAuthor("Jen");
+                    c.setVotes("123");
+                    c.setImageUrl("http://images.fanpop.com/images/image_uploads/so-freakin-cute--cats-248624_500_375.jpg");
+                    break;
+            }
+            result.add(c);
         }
-
         return result;
     }
 

@@ -14,17 +14,9 @@ import java.util.List;
 
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder> {
     private Context context;
-    private List<GalleryData> listData;
+    private List<CatData> listData;
 
-    public static class GalleryData
-    {
-        protected String author;
-        protected String votes;
-       
-        protected static final String AUTHOR_PREFIX = "By: ";
-        protected static final String VOTES_PREFIX = "Votes: ";
 
-    }
     public static class ViewHolder extends RecyclerView.ViewHolder {
         protected ImageView image;
         protected TextView author;
@@ -39,7 +31,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
     }
 
 
-    public GalleryAdapter(List<GalleryData> listData, Context context)
+    public GalleryAdapter(List<CatData> listData, Context context)
     {
         this.listData = listData;
         this.context = context;
@@ -59,10 +51,10 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        GalleryData ci = listData.get(position);
-        Picasso.with(context).load(R.drawable.kitten).into(holder.image);
-        holder.author.setText(ci.author);
-        holder.votes.setText(ci.votes);
+        CatData cd = listData.get(position);
+        Picasso.with(context).load(cd.getImageUrl()).into(holder.image);
+        holder.author.setText("By: " + cd.getAuthor());
+        holder.votes.setText("Votes: " + cd.getVotes());
     }
 
     // Return the size of your dataset (invoked by the layout manager)

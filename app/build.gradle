@@ -37,4 +37,5 @@ dependencies {
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.jpardogo.materialtabstrip:library:1.0.0'
     compile 'com.squareup.picasso:picasso:2.4.0'
+    compile 'com.google.code.gson:gson:2.3'
 }

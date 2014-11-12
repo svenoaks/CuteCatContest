@@ -65,7 +65,7 @@ public class GalleryActivity extends ActionBarActivity {
 
         switch (item.getItemId()) {
 
-            case R.id.action_contact:
+            case R.id.action_upload:
 
                 return true;
 
