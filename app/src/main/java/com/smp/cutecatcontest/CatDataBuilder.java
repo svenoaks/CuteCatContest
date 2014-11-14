@@ -2,7 +2,7 @@ package com.smp.cutecatcontest;
 
 public class CatDataBuilder
 {
-    private String imageUrl;
+    /*private String imageUrl;
     private String author;
     private String votes;
 
@@ -27,5 +27,5 @@ public class CatDataBuilder
     public CatData createCatData()
     {
         return new CatData(imageUrl, author, votes);
-    }
+    }*/
 }

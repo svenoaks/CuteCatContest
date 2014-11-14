@@ -9,10 +9,20 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ViewFlipper;
 
+import com.google.gson.Gson;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.TextHttpResponseHandler;
 import com.shamanland.fab.ShowHideOnScroll;
 
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -24,9 +34,11 @@ public class GalleryFragment extends Fragment {
 
     private int position;
 
-    @InjectView(R.id.recycler_view) RecyclerView mRecyclerView;
+    @InjectView(R.id.recycler_view)
+    RecyclerView mRecyclerView;
     //@InjectView(R.id.floating_button_gallery) com.shamanland.fab.FloatingActionButton mFloatingActionButton;
-
+    @InjectView(R.id.flipper)
+    ViewFlipper mFlipper;
     private RecyclerView.Adapter mAdapter;
     private GridLayoutManager mLayoutManager;
 
@@ -65,11 +77,35 @@ public class GalleryFragment extends Fragment {
            }
        });
 
-        // specify an adapter (see also next example)
-       mAdapter = new GalleryAdapter(createList(), this.getActivity());
-       mRecyclerView.setAdapter(mAdapter);
+       retrieveGallery();
+
        //mRecyclerView.setOnTouchListener(new ShowHideOnScroll(mFloatingActionButton));
        return view;
+    }
+
+    private static final int VIEW_RECYCLER_NUM = 1;
+    private static final int VIEW_PROGRESS_NUM = 0;
+
+    private void retrieveGallery()
+    {
+        GalleryClient.get("gallery/cutest", null, new TextHttpResponseHandler() {
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable)
+            {
+
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString)
+            {
+                Gson gson = new Gson();
+                CatData[] cats = gson.fromJson(responseString, CatData[].class);
+                mAdapter = new GalleryAdapter(Arrays.asList(cats), GalleryFragment.this.getActivity());
+                mRecyclerView.setAdapter(mAdapter);
+                mFlipper.setDisplayedChild(VIEW_RECYCLER_NUM);
+            }
+        });
     }
     private void calculateSpans()
     {
@@ -81,7 +117,7 @@ public class GalleryFragment extends Fragment {
         mLayoutManager.setSpanCount((int) dpWidth/CARD_WIDTH_MIN);
     }
     private static List<CatData> createList() {
-
+/*
         List<CatData> result = new ArrayList<CatData>();
         for (int i=1; i <= 30; i++) {
             CatData c = new CatDataBuilder().createCatData();
@@ -120,7 +156,8 @@ public class GalleryFragment extends Fragment {
             }
             result.add(c);
         }
-        return result;
+        return result;*/
+        return null;
     }
 
 }

@@ -9,7 +9,7 @@ public class CatData
     private String author;
     private String votes;
 
-    public CatData(String imageUrl, String author, String votes) {}
+    public CatData() {}
 
     public String getImageUrl()
     {
