@@ -9,6 +9,7 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.google.gson.Gson;
@@ -77,10 +78,28 @@ public class GalleryFragment extends Fragment {
            }
        });
 
-       retrieveGallery();
+       //retrieveGallery();
+       attemptLogin();
 
-       //mRecyclerView.setOnTouchListener(new ShowHideOnScroll(mFloatingActionButton));
        return view;
+    }
+
+    private void attemptLogin()
+    {
+        GalleryClient.login("max", "my_pass", new TextHttpResponseHandler()
+        {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable)
+            {
+                Toast.makeText(GalleryFragment.this.getActivity(), "FAILURE", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString)
+            {
+                Toast.makeText(GalleryFragment.this.getActivity(), responseString, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private static final int VIEW_RECYCLER_NUM = 1;
